@@ -33,3 +33,17 @@ func (list *SingleLinkedList) Append(data int) {
 	current.next = newNode
 
 }
+
+// Insert new element at the beginning of the Singly Linked List
+
+func (list *SingleLinkedList) Prepend(data int) {
+	newNode := &Node{Data: data, next: nil}
+
+	if list.head == nil {
+		list.head = newNode
+		return
+	}
+
+	newNode.next = list.head
+	list.head = newNode
+}
