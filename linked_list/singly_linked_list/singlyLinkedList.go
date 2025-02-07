@@ -4,11 +4,11 @@ import "fmt"
 
 type Node struct {
 	Data int
-	next *Node
+	Next *Node
 }
 
 type SinglyLinkedList struct {
-	head *Node
+	Head *Node
 }
 
 // function to create a new Singly Linked List
@@ -18,34 +18,34 @@ func New() *SinglyLinkedList {
 
 // Insert new element at the end of the Singly Linked List
 func (list *SinglyLinkedList) Append(data int) {
-	newNode := &Node{Data: data, next: nil}
+	newNode := &Node{Data: data, Next: nil}
 
-	if list.head == nil {
-		list.head = newNode
+	if list.Head == nil {
+		list.Head = newNode
 		return
 	}
 
-	current := list.head
+	current := list.Head
 
-	for current.next != nil {
-		current = current.next
+	for current.Next != nil {
+		current = current.Next
 	}
 
-	current.next = newNode
+	current.Next = newNode
 
 }
 
 // Insert new element at the beginning of the Singly Linked List
 func (list *SinglyLinkedList) Prepend(data int) {
-	newNode := &Node{Data: data, next: nil}
+	newNode := &Node{Data: data, Next: nil}
 
-	if list.head == nil {
-		list.head = newNode
+	if list.Head == nil {
+		list.Head = newNode
 		return
 	}
 
-	newNode.next = list.head
-	list.head = newNode
+	newNode.Next = list.Head
+	list.Head = newNode
 }
 
 // Add new element on the given index
@@ -56,31 +56,43 @@ func (list *SinglyLinkedList) AddByIndex(data int, index int) error {
 	}
 
 	counter := 0
-	currentNode := list.head
+	currentNode := list.Head
 
 	for counter < index && currentNode != nil {
-		currentNode = currentNode.next
+		currentNode = currentNode.Next
 		counter += 1
 	}
 
-	newNode := &Node{Data: data, next: nil}
+	newNode := &Node{Data: data, Next: nil}
 
 	if currentNode == nil && index == 0 {
-		list.head = newNode
+		list.Head = newNode
 	} else if currentNode == nil && counter < index-1 {
 		return fmt.Errorf("Index out of Range")
 	} else if index == 0 {
 
-		newNext := list.head
-		list.head = newNode
-		newNode.next = newNext
+		newNext := list.Head
+		list.Head = newNode
+		newNode.Next = newNext
 
 	} else {
-		oldNext := currentNode.next
-		currentNode.next = newNode
-		newNode.next = oldNext
+		oldNext := currentNode.Next
+		currentNode.Next = newNode
+		newNode.Next = oldNext
 	}
 
 	return nil
 
+}
+
+func (list *SinglyLinkedList) Size() int {
+	counter := 0
+	currentNode := list.Head
+
+	for currentNode != nil {
+		counter++
+		currentNode = currentNode.Next
+	}
+
+	return counter
 }
