@@ -81,4 +81,6 @@ func (list *SinglyLinkedList) AddByIndex(data int, index int) error {
 		newNode.next = oldNext
 	}
 
+	return nil
+
 }
